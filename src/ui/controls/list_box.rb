@@ -577,6 +577,14 @@ def pause_item_audio(id)
   entry[:player].pause if entry[:player].respond_to?(:pause) && !entry[:player].paused?
 end
 
+def preserve_paused_item_audio(id=self.index)
+  entry=@item_audio_entries[id] if @item_audio_entries!=nil
+  return false if entry==nil || entry[:player]==nil || entry[:player].completed
+  pause_item_audio(id)
+  mark_item_audio_active(id)
+  true
+end
+
 def pause_other_item_audio(id)
   return if @item_audio_entries==nil
   @item_audio_entries.keys.each do |i|

@@ -90,6 +90,7 @@ class Scene_Main
       end
       announce_notifications_after_restore_if_active
       feeds_load if Session.feeds_updated?
+      preserve_inactive_feed_audio
       update_current_main_control
       if key_pressed?(0x9)
         if key_held?(0x10)
@@ -334,6 +335,11 @@ def update_current_main_control
     control = program_main_tab_control
     control.update if control != nil
   end
+end
+
+def preserve_inactive_feed_audio
+  return if current_main_section == :feed || @feedsel == nil
+  @feedsel.preserve_paused_item_audio
 end
 
 def notifications_load(fc=false, focus_policy: :keep_current)

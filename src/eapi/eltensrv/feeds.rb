@@ -30,7 +30,7 @@ module EltenAPI
     def configure_feed_list_audio(list, feeds)
       return if list==nil
       list.item_audio_autoplay=false
-      list.item_audio_space_mode=:stop
+      list.item_audio_space_mode=:pause
       feeds.to_a.each_with_index do |feed, index|
         url=feed_audio_url(feed)
         next if url==""
